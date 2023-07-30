@@ -1,0 +1,6 @@
+* @bridgesC648
+*.tsx @bridgesC648
+
+*.yml @bridgesC648 
+
+/public/ @bridgesC648
