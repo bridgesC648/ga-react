@@ -9,11 +9,9 @@ try {
   core.warning('Warning message');
   core.error('Error message');
 
+  const name = core.getInput("who-to-greet");
   // we can set secrets
   core.setSecret(name); // this will be masked as *** or something. 
-
-
-  const name = core.getInput("who-to-greet");
   console.log(`${name} says hello, world!`);
 
   const time = new Date();
