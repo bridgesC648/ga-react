@@ -1,0 +1,14 @@
+name: Hello World!
+author: Chris Bridges
+description: Say hello to the world
+inputs:
+  who-to-greet:
+    description: "Who to greet"
+    required: true
+    default: Chris
+outputs:
+  time:
+    description: "Time of greeting"
+runs:
+  using: "node18"
+  main: "index.js"

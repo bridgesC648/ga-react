@@ -1,5 +1,5 @@
 module.exports = {
-  branches: "main",
+  branches: ["main"],
   repositoryUrl: "https://github.com/bridgesC648/ga-react",
   plugins: [
     "@semantic-release/commit-analyzer",
