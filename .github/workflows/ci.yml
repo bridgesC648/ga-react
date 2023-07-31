@@ -16,9 +16,6 @@ jobs:
         with:
           node-version: "14.x"
           npm: "6.x"
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-key: |
-            ${{ runner.os }}-node-
       - name: List Files
         run: |
           pwd
@@ -27,6 +24,9 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-key: |
+            ${{ runner.os }}-node-
       - name: Install Dependencies
         run: npm install # installs dependencies, similar to npm install
       - name: Check formatting
