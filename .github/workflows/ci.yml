@@ -16,11 +16,17 @@ jobs:
         with:
           node-version: "14.x"
           npm: "6.x"
-
       - name: List Files
         run: |
           pwd
           ls -l
+      - name: Cache node_modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-key: |
+            ${{ runner.os }}-node-
       - name: Install Dependencies
         run: npm install # installs dependencies, similar to npm install
       - name: Check formatting
@@ -29,9 +35,23 @@ jobs:
         run: npm test -- --coverage
         env:
           CI: true
+      - name: Upload Test Coverage Report
+        uses: actions/upload-artifact@v1
+        with:
+          name: coverage-report
+          path: coverage
+      - name: Upload Build Folder
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v1
+        with:
+          name: build
+          path: build
       - name: Build Project
         if: github.event_name == 'push'
         run: npm run build
       - name: Deploy to Staging
         if: github.event_name == 'push'
         run: npx surge --project ./build --domain unruly-fan-chbridges.surge.sh
+        env:
+          SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }} #username
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }} #token we will generate
