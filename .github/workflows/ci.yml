@@ -16,11 +16,17 @@ jobs:
         with:
           node-version: "14.x"
           npm: "6.x"
-
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-key: |
+            ${{ runner.os }}-node-
       - name: List Files
         run: |
           pwd
           ls -l
+      - name: Cache node_modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
       - name: Install Dependencies
         run: npm install # installs dependencies, similar to npm install
       - name: Check formatting
@@ -35,3 +41,6 @@ jobs:
       - name: Deploy to Staging
         if: github.event_name == 'push'
         run: npx surge --project ./build --domain unruly-fan-chbridges.surge.sh
+        env:
+          SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }} #username
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }} #token we will generate
