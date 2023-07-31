@@ -30,7 +30,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format:check": "prettier --check \"**/*.{js,jsx,yml,json,css,scss,ts,tsx,md}\"",
-    "format": "prettier --write \"**/*.{js,jsx,yml,json,css,scss,ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{js,jsx,yml,json,css,scss,ts,tsx,md}\"",
+    "ncc:compile": "npx ncc build .\\.github\\actions\\hello\\index.js -o .\\.github\\actions\\hello\\dist"
   },
   "eslintConfig": {
     "extends": [
