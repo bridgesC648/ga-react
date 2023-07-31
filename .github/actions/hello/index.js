@@ -2,6 +2,7 @@ const core = require("@actions/core");
 const github = require("@actions/github");
 
 try {
+  throw new Error("Task failed successfully");
   const name = core.getInput("who-to-greet");
   console.log(`${name} says hello, world!`);
 

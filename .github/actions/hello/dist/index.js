@@ -1892,6 +1892,7 @@ const core = __webpack_require__(470);
 const github = __webpack_require__(469);
 
 try {
+  throw new Error("Task failed successfully");
   const name = core.getInput("who-to-greet");
   console.log(`${name} says hello, world!`);
 
