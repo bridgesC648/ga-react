@@ -11,6 +11,7 @@ try {
 
   const name = core.getInput("who-to-greet");
   // we can set secrets
+  console.log(`name before setSecret: ${name}`);
   core.setSecret(name); // this will be masked as *** or something. 
   console.log(`${name} says hello, world!`);
 
