@@ -6,6 +6,16 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+      - name: Open an Issue
+        uses: ./.github/actions/issue
+        id: issue
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: Title
+          body: Body
+          assignees: bridgesc648
+      - run: |
+          echo ${{ steps.issue.outputs.issue }}
       - name: Say Hello
         uses: ./.github/actions/hello
         id: hello

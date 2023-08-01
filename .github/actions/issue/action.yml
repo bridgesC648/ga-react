@@ -1,0 +1,17 @@
+inputs:
+  token:
+    description: "Github Token"
+    required: true
+  title:
+    description: "Issue title"
+    required: true
+  body:
+    description: "Issue body"
+  assignees:
+    description: "Issue assignees"
+outputs:
+  issue: # id of output
+    description: "The issue object as a JSON string"
+runs:
+  using: "node16"
+  main: "dist/index.js"
