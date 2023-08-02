@@ -5550,7 +5550,7 @@ async function createIssue() {
       body,
       assignees
     });
-  } catch {
+  } catch (err) {
     core.setFailed(err.message);
   }
 }
