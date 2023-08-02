@@ -2251,6 +2251,14 @@ exports.createTokenAuth = createTokenAuth;
 
 /***/ }),
 
+/***/ 313:
+/***/ (function(module) {
+
+module.exports = eval("require")("@octokit/rest");
+
+
+/***/ }),
+
 /***/ 322:
 /***/ (function(__unusedmodule, exports) {
 
@@ -5532,26 +5540,28 @@ Object.defineProperty(exports, "toPlatformPath", { enumerable: true, get: functi
 
 const core = __webpack_require__(470);
 const github = __webpack_require__(469);
+const octokit = __webpack_require__(313);
 
-try {
-  const token = core.getInput("token");
-  const title = core.getInput("title");
-  const body = core.getInput("body");
-  const assignees = core.getInput("assignees");
+createIssue();
 
-  //const octokit = new github.GitHub(token);
+async function createIssue() {
+  try {
+    const token = core.getInput("token");
+    const title = core.getInput("title");
+    const body = core.getInput("body");
+    const assignees = core.getInput("assignees");
 
-  const octokit = github.getOctokit(token);
+    const octokit = github.getOctokit(token);
 
-  octokit.issues.create({
-    owner: github.context.repo.owner,
-    repo: github.context.repo.repo,
-    title,
-    body,
-    assignees
-  });
-} catch (err) {
-  core.setFailed(err.message);
+    const response = await octokit.rest.issues.create({
+      ...github.context.repo,
+      title,
+      body,
+      assignees
+    });
+  } catch {
+    core.setFailed(err.message);
+  }
 }
 
 
