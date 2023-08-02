@@ -2251,14 +2251,6 @@ exports.createTokenAuth = createTokenAuth;
 
 /***/ }),
 
-/***/ 313:
-/***/ (function(module) {
-
-module.exports = eval("require")("@octokit/rest");
-
-
-/***/ }),
-
 /***/ 322:
 /***/ (function(__unusedmodule, exports) {
 
@@ -5540,7 +5532,6 @@ Object.defineProperty(exports, "toPlatformPath", { enumerable: true, get: functi
 
 const core = __webpack_require__(470);
 const github = __webpack_require__(469);
-const octokit = __webpack_require__(313);
 
 createIssue();
 
