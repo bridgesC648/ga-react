@@ -1,0 +1,40 @@
+name: Release and PR
+on:
+    release:
+jobs:
+    stage-to-prod:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Not Yet Implemented
+              run: echo "This step not yet implemented. Please stage your WAR file manually."
+    branch-and-pr:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v2
+
+            - name: Setup Git Config
+              run: |
+                git config --global user.email "action@github.com"
+                git config --global user.name "GitHub Action"
+            
+            - name: Create Release Branch
+              run: |
+                # Extract versoin number
+                VERSION_NUMBER=${GITHUB_REF/refs\/tags\//}
+                RELEASE_BRANCH="RELEASE/${VERSION_NUMBER}"
+                git checkout -b $RELEASE_BRANCH $GITHUB_REF
+
+                # Push the branch to the remote
+                git push origin $RELEASE_BRANCH
+            
+            - name: Create Pull Request
+              uses: repo-sync/pull-request@v2
+              with:
+                github_token: ${{ secrets.GITHUB_TOKEN }}
+                pr_title: "Merge release $VERSION_NUMBER into main"
+                pr_body: "This PR merges the changes from the release $VERSION_NUMBER into main"
+                source_branch: "$RELEASE_BRANCH"
+                destination_branch: "main"
+              
+                
