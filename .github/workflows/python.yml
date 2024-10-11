@@ -33,7 +33,7 @@ jobs:
         tar -czvf python-3.6.9-offline-installer.tar.gz python-3.6.9-offline-installer/
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: python-3.6.9-offline-installer
         path: python-3.6.9-offline-installer.tar.gz
