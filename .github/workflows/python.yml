@@ -1,0 +1,39 @@
+name: Python 3.6.9 Offline Installer
+
+on:
+  workflow_dispatch: # Allows you to manually trigger the workflow
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04  # Specify the Ubuntu version
+
+    steps:
+    - name: Set up Python
+      run: |
+        sudo apt update
+        sudo apt install apt-rdepends -y
+
+    - name: Download Python source and dependencies
+      run: |
+        # Download Python 3.6.9 source
+        wget https://www.python.org/ftp/python/3.6.9/Python-3.6.9.tgz
+
+        # Use apt-rdepends to get dependencies
+        apt-rdepends build-essential libssl-dev zlib1g-dev libncurses5-dev libnss3-dev libreadline-dev libffi-dev libsqlite3-dev libbz2-dev \
+        | grep -v "^ " | xargs -n 1 apt-get download
+
+        # Create a directory to bundle everything
+        mkdir python-3.6.9-offline-installer
+        mv *.deb python-3.6.9-offline-installer/
+        mv Python-3.6.9.tgz python-3.6.9-offline-installer/
+
+    - name: Package everything
+      run: |
+        # Create a tarball for easy download
+        tar -czvf python-3.6.9-offline-installer.tar.gz python-3.6.9-offline-installer/
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: python-3.6.9-offline-installer
+        path: python-3.6.9-offline-installer.tar.gz
